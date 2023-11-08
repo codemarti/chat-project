@@ -19,6 +19,7 @@ const io = new Server(server, {
 })
 
 io.on("connection", (socket) => {
+  // console.log("Current user: " + socket.request.socket.localAddress)
   console.log("Current user: " + socket.id)
 
   socket.on("join-room", (data) => {
@@ -33,13 +34,19 @@ io.on("connection", (socket) => {
   })
 
   socket.on("send-message", (data) => {
-    console.log("Message received")
-    console.log(data)
+    // console.log("Message received")
+    // console.log(data)
+    socket.to(data.room).emit("receive-message", data)
   })
 
   socket.on("disconnect", () => {
     console.log("User disconnected with id: ", socket.id)
   })
+})
+
+
+server.listen(PORT, () => {
+  console.log("Server listening on port: " + PORT)
 })
 
 const getClientIp = (request) => {
@@ -53,7 +60,3 @@ const getClientIp = (request) => {
 
   return clientIp
 }
-
-server.listen(PORT, () => {
-  console.log("Server listening on port: " + PORT)
-})
