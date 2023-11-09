@@ -4,8 +4,8 @@ import io from "socket.io-client";
 import Chat from "./Chat";
 import { Container, Card, Form, Button } from "semantic-ui-react";
 
-// const socketToConnect = io.connect("http://localhost:1234");
-const socketToConnect = io.connect("http://192.168.128.10:1234");
+ const socketToConnect = io.connect("http://localhost:1234");
+// const socketToConnect = io.connect("http://192.168.128.10:1234");
 
 function App() {
   // dentro de esta constante pueden ir varias caracteristicas del usuario
