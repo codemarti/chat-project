@@ -66,16 +66,17 @@ const Chat = ({ socket, username, clientIP, room }) => {
           <Form>
             <Form.Field>
               <div className="ui action input">
-                <input
+                <input style={{border: "2px solid black"}}
                   value={currentMessage}
                   action={{
-                    color: "black",
+                    color: "red",
                     labelPosition: "right",
                     icon: "send",
                     content: "Send",
                     onClick: sendMessage
                   }}
-                  type="text" name="" id="" placeholder="Message..." onChange={e => setCurrentMessage(e.target.value)}
+                  type="text" name="" id="" placeholder="Message..." onChange={e => setCurrentMessage(e.target.value)
+                  }
                   onKeyPress={(e) => {
                     if (e.key === "Enter") sendMessage()
                   }}
