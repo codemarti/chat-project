@@ -1,7 +1,17 @@
 import "./Login.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Login() {
+  const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(true);
+
+  const handleLogin = () => {
+    // Lógica de autenticación, etc.
+
+    // Navegar a la ruta "/rooms" después de iniciar sesión
+    navigate('/rooms');
+  };
 
   return (
     <div className="app">
@@ -22,19 +32,27 @@ export default function Login() {
             </div>
           </div>
 
-          {showLogin ? <LoginForm /> : <SignupForm />}
+          {showLogin ? <LoginForm onLogin={handleLogin} /> : <SignupForm />}
         </div>
       </div>
     </div>
   );
 }
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Lógica de validación del formulario, etc.
+
+    // Llama a la función onLogin para navegar a la ruta "/rooms"
+    onLogin();
+  };
+
   return (
-    <form className="login-form">
+    <form className="login-form" onSubmit={handleSubmit}>
       <input type="text" placeholder="Usuario" />
       <input type="password" placeholder="Contraseña" />
-      <button>Entrar</button>
+      <button type="submit">Entrar</button>
     </form>
   );
 }
@@ -44,7 +62,10 @@ function SignupForm() {
     <form className="login-form">
       <input type="text" placeholder="Usuario" />
       <input type="password" placeholder="Contraseña" />
-      <button onClick={"./App.jsx"}>Registrarse</button>
+      {/* No uses un string para el evento onClick, utiliza una función */}
+      <button type="button" onClick={() => alert('Registrarse')}>
+        Registrarse
+      </button>
     </form>
   );
 }

@@ -1,0 +1,56 @@
+.rooms-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+}
+
+.rooms-card {
+  background: #fff;
+  width: 100%;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centra el texto */
+}
+
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.room-item {
+  display: flex;
+  align-items: center;
+  padding: 15px; /* Aumenta el tamaño del contenido */
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.room-item i {
+  margin-right: 10px;
+  font-size: 24px; /* Aumenta el tamaño del ícono */
+}
+
+.room-item span {
+  font-size: 18px; /* Aumenta el tamaño del texto */
+}
+
+.room-item:hover,
+.room-item:focus {
+  background: #128c7e;
+  color: #fff;
+}
+
+.room-item.selected {
+  background: #075e54;
+  color: #fff;
+}
+
+h1 {
+  color: #128c7e;
+  font-size: 24px; /* Aumenta el tamaño del título */
+}
