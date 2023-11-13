@@ -34,16 +34,6 @@ const Chat = ({ socket, username, clientIP, room }) => {
   }, [socket])
 
   return (
-    // <div>
-    //   <section className="chat-header">
-    //     <p>Live chat</p>
-    //   </section>
-    //   <section className="chat-messages"></section>
-    //   <section className="chat-footer">
-    //     <input type="text" placeholder="Menssage..." onChange={(e) => setCurrentMessage(e.target.value)} />
-    //     <button onClick={sendMessage}>Send &#9658;</button>
-    //   </section>
-    // </div>
     <Container>
       <Card fluid>
         <Card.Content header={`Live chat | Sala: ${room}`} />

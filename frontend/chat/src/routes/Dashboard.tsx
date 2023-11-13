@@ -14,7 +14,7 @@ interface Todo {
 }
 
 // pasamos la direccion del backend al cliente
-const socketToConnect = io("http://192.168.100.17:5000")
+const socketToConnect = io("http://192.168.128.14:5000")
 
 export default function Dashboard() {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -102,9 +102,8 @@ export default function Dashboard() {
             <Card.Content header="Join to chat" />
             <Card.Content>
               <Form>
-                <Form.Field>
-                  <label htmlFor="">Username:</label>
-                  <input type="text" value={auth.getUser()?.username} />
+                <Form.Field hidden >
+                  <input type="text" value={auth.getUser()?.username} hidden />
                 </Form.Field>
                 <Form.Field>
                   <label htmlFor="">Room</label>
