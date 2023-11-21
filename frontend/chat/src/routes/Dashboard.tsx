@@ -5,6 +5,7 @@ import PortalLayout from "../layout/PortalLayout";
 import io from 'socket.io-client'
 import Chat from "./Chat";
 import { Container, Card, Form, Button } from 'semantic-ui-react'
+import Usuarios from "./Usuarios";
 
 interface Todo {
   _id: string,
@@ -29,8 +30,9 @@ export default function Dashboard() {
 
   const joinRoom = () => {
     if (auth.getUser()?.username !== "" && room !== "") {
-      socketToConnect.emit("join-room", room)
-
+      const username = auth.getUser()?.username
+      socketToConnect.emit("join-room", {username, room})
+      // socketToConnect.emit('join-room', { room, username: auth.getUser()?.username });
       // Manejar la dirección IP enviada por el servidor
       socketToConnect.on("client-ip", (ip) => {
         setClientIP(ip)
@@ -116,6 +118,7 @@ export default function Dashboard() {
         ) : (
           <Chat socket={socketToConnect} username={auth.getUser()?.username} clientIP={clientIP} room={room} setClientIP={setClientIP} />
         )}
+        {showChat && <Usuarios socketToConnect={socketToConnect} />}
       </Container>
     </PortalLayout>
   )

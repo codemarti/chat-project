@@ -45,9 +45,6 @@ export default function PortalLayout({
               </li>
             )}
             <li>
-              <Link to="/me">Profile</Link>
-            </li>
-            <li>
               <Link to="/me">{auth.getUser()?.username ?? ""}</Link>
             </li>
             <li>

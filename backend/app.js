@@ -39,6 +39,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+const connectedUsers = new Set();
+
 io.on('connection', (socket) => {
   console.log('Current user: ' + socket.id)
 
@@ -46,7 +48,17 @@ io.on('connection', (socket) => {
     socket.join(data)
 
     const clientIp = getClientIp(socket.request)
-    console.log('User connected with id: ' + socket.id + ' and IP address: ' + clientIp + ' has joined in room: ' + data)
+    console.log('User connected with id: ' + socket.id + ' and IP: ' + clientIp + ' has joined in room: ' + data.room + ' username: ' + data.username)
+
+    // Agregar usuario al conjunto de usuarios conectados
+    connectedUsers.add({
+      id: socket.id,
+      username: data.username, // Asegúrate de pasar el nombre de usuario al unirse a la sala
+      ip: clientIp
+    });
+
+    // Emitir la lista de usuarios conectados a todos los clientes
+    io.to(data).emit('connected-users', Array.from(connectedUsers));
 
     socket.emit('client-ip', clientIp)
   })

@@ -9,6 +9,7 @@ import Dashboard from './routes/Dashboard.tsx'
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import { AuthProvider } from './auth/AuthProvider.tsx'
 import Chat from './routes/Chat.jsx'
+import Usuarios from './routes/Usuarios.tsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/Chat',
         element: <Chat />
+      },
+      {
+        path: '/Usuarios',
+        element: <Usuarios />
       }
     ]
   },
