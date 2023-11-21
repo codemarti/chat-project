@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Card, Container, Form, Message, Divider, Icon } from "semantic-ui-react"
 import ScrollToBottom from "react-scroll-to-bottom"
 
-const Chat = ({ socket, username, clientIP, room }) => {
+const Chat = ({ socket, username, clientIP, setClientIP, room }) => {
   const [currentMessage, setCurrentMessage] = useState("")
   const [messagesList, setMessagesList] = useState([])
 
@@ -30,8 +30,13 @@ const Chat = ({ socket, username, clientIP, room }) => {
 
     socket.on("receive-message", messageHandle)
 
+    // Actualizar la dirección IP cuando se recibe del servidor
+    socket.on("client-ip", (ip) => {
+      setClientIP(ip);
+    });
+
     return () => socket.off("receive-message", messageHandle)
-  }, [socket])
+  }, [socket, setClientIP])
 
   return (
     <Container>

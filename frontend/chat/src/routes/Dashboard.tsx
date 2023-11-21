@@ -14,7 +14,7 @@ interface Todo {
 }
 
 // pasamos la direccion del backend al cliente
-const socketToConnect = io("http://192.168.128.14:5000")
+const socketToConnect = io("http://localhost:5000")
 
 export default function Dashboard() {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -95,7 +95,7 @@ export default function Dashboard() {
   }
 
   return (
-    <PortalLayout>
+    <PortalLayout clientIP={clientIP}>
       <Container>
         {!showChat ? (
           <Card fluid>
@@ -114,7 +114,7 @@ export default function Dashboard() {
             </Card.Content>
           </Card>
         ) : (
-          <Chat socket={socketToConnect} username={auth.getUser()?.username} clientIP={clientIP} room={room} />
+          <Chat socket={socketToConnect} username={auth.getUser()?.username} clientIP={clientIP} room={room} setClientIP={setClientIP} />
         )}
       </Container>
     </PortalLayout>

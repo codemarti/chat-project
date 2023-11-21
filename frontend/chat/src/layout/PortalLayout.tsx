@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../auth/constants";
 
 export default function PortalLayout({
-  children
+  children,
+  clientIP // <-- Agregado como prop
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,  
+  clientIP: string; // <-- Agregado como prop
 }) {
   const auth = useAuth()
 
@@ -36,7 +38,12 @@ export default function PortalLayout({
           <ul>
             <li>
               <Link to="/Dashboard">Dashboard</Link>
-            </li>
+            </li>            
+            {clientIP === '::1' && (
+              <li>
+                <Link to="/Usuarios">Usuarios</Link>
+              </li>
+            )}
             <li>
               <Link to="/me">Profile</Link>
             </li>
