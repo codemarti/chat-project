@@ -37,6 +37,7 @@ export default function Dashboard() {
       socketToConnect.on("client-ip", (ip) => {
         setClientIP(ip)
       })
+      console.log("a",clientIP)
 
       // hacemos visible el chat
       setShowChat(true)
@@ -96,6 +97,8 @@ export default function Dashboard() {
     }
   }
 
+  console.log(clientIP)
+
   return (
     <PortalLayout clientIP={clientIP}>
       <Container>
@@ -116,9 +119,10 @@ export default function Dashboard() {
             </Card.Content>
           </Card>
         ) : (
-          <Chat socket={socketToConnect} username={auth.getUser()?.username} clientIP={clientIP} room={room} setClientIP={setClientIP} />
+          <Chat socket={socketToConnect} username={auth.getUser()?.username} clientIP={clientIP} room={room} setClientIP={setClientIP} />          
         )}
-        {showChat && <Usuarios socketToConnect={socketToConnect} />}
+        {/* Muestra la tabla de usuarios solo si clientIP es "::1" */}
+        {showChat && auth.getUser()?.username === "servidor" && <Usuarios socketToConnect={socketToConnect} />}
       </Container>
     </PortalLayout>
   )

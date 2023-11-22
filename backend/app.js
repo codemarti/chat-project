@@ -50,15 +50,22 @@ io.on('connection', (socket) => {
     const clientIp = getClientIp(socket.request)
     console.log('User connected with id: ' + socket.id + ' and IP: ' + clientIp + ' has joined in room: ' + data.room + ' username: ' + data.username)
 
-    // Agregar usuario al conjunto de usuarios conectados
-    connectedUsers.add({
-      id: socket.id,
-      username: data.username, // Asegúrate de pasar el nombre de usuario al unirse a la sala
-      ip: clientIp
-    });
-
-    // Emitir la lista de usuarios conectados a todos los clientes
-    io.to(data).emit('connected-users', Array.from(connectedUsers));
+    // Agregar usuario a connectedUsers
+    if (clientIp === "::1"){
+      connectedUsers.add({ 
+        id: socket.id,
+        username: data.username, 
+        ip: clientIp
+      })
+  
+      // Emitir la lista actualizada a todos los clientes
+      io.emit('connected-users', Array.from(connectedUsers))
+  
+      socket.on('disconnect', () => {
+        connectedUsers.delete(socket.id)
+        io.emit('connected-users', Array.from(connectedUsers)) 
+      })
+    }
 
     socket.emit('client-ip', clientIp)
   })
